@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alexandra & Alexandru</title>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<video autoplay muted loop playsinline id="bg-video">
+<source src="bg.mp4" type="video/mp4"></video>
+
+<div class="overlay" onclick="openInvite()">
+  <div class="seal-container">
+    <div class="wax-seal">A & A</div>
+  </div>
+</div>
+
+<!-- CONTINUT -->
+<div id="content" class="hidden">
+  <div class="veil">
+
+    <h1 class="names">Alexandra & Alexandru</h1>
+    <p class="subtitle">Păun-Stoica</p>
+
+    <p class="invite-text">
+      Vă invităm să fiți alături de noi într-una dintre cele mai importante zile ale vieții noastre
+    </p>
+
+    <h3>Nașii</h3>
+    <p>Cristina & Cristi Prodan</p>
+
+    <div class="parents">
+      <div class="parent-block left">
+        <h3>Părinții miresei</h3>
+        <p>Adina & Cristi Stoica</p>
+      </div>
+
+      <div class="parent-block right">
+        <h3>Părinții mirelui</h3>
+        <p>Oana & Cristi Păun</p>
+      </div>
+    </div>
+
+    <h2 class="date">11 Septembrie 2027</h2>
+
+    <div id="countdown"></div>
+
+    <script>
+
+  // Data țintă (ex: 1 ianuarie 2027)
+
+  const targetDate = new Date("Sep 11, 2027 16:00:00").getTime();
+
+  const countdownFunction = setInterval(function() {
+
+    const now = new Date().getTime();
+
+    const distance = targetDate - now;
+
+    // Calcul timp
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Afișare
+
+    document.getElementById("countdown").innerHTML =
+
+      days + " zile " +
+
+      hours + " ore " +
+
+      minutes + " minute " +
+
+      seconds + " secunde";
+
+    // Dacă timpul a expirat
+
+    if (distance < 0) {
+
+      clearInterval(countdownFunction);
+
+      document.getElementById("countdown").innerHTML = "A expirat!";
+
+    }
+
+  }, 1000);
+
+</script>
+
+    <!-- CEREMONIE -->
+    <div class="event">
+      <div class="event-title">
+        <img class="icon" src="https://static.vecteezy.com/system/resources/previews/036/574/496/large_2x/elegant-ecclesia-church-logo-symbol-heavenly-heights-church-emblem-vector.jpg">
+        Biserica
+      </div>
+      <p>Ora 16:00</p>
+      <p>Locație: Biserica Eroilor Martiri din Decembrie 1989</p>
+      <a href="https://maps.app.goo.gl/t4FAhu7SqMm7ARCG9">Vezi pe hartă</a>
+    </div>
+
+    <!-- PETRECERE -->
+    <div class="event">
+      <div class="event-title">
+        <img class="icon" src="https://static.vecteezy.com/system/resources/previews/035/408/963/large_2x/solid-icon-for-venues-vector.jpg">
+        Restaurant / Petrecere
+      </div>
+      <p>Ora 18:30</p>
+      <p>Locație: V Lounge</p>
+      <a href="https://maps.app.goo.gl/5PUygjoMzNtHvifR6">Vezi pe hartă</a>
+    </div>
+
+    <!-- RSVP -->
+    <div class="section">
+      <h3>Confirmare prezență</h3>
+
+      <form id="rsvpForm">
+        <input type="text" name="name" placeholder="Nume Prenume" required>
+        <input type="number" name="guests" placeholder="Număr persoane" required>
+
+        <select name="status" required>
+          <option value="">Selectează</option>
+          <option value="Confirm">Confirm</option>
+          <option value="Nu pot veni">Nu pot veni</option>
+        </select>
+
+        <button type="submit">Trimite</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
