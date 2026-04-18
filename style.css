@@ -1,0 +1,252 @@
+body {
+  margin: 0;
+  font-family: 'Libre Baskerville', serif;
+  background: linear-gradient(135deg, #ffffff, #f2f2f0); /* alb sidefat */
+}
+
+/* =========================
+   PLIC FULL SCREEN LUXURY
+========================= */
+
+.overlay {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* plic full screen */
+.seal-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(120deg, #f7f7f5, #e9e6e1);
+}
+
+/* partea frontala plic (vizibil partial) */
+.seal-container::before {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  background: #f3eee6;
+  right: 0;
+  top: 0;
+  clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+  transition: all 0.9s ease;
+}
+
+/* capac lateral */
+.seal-container::after {
+  content: "";
+  position: absolute;
+  width: 60%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: #ffffff;
+  clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
+  transform-origin: left;
+  transition: transform 1s ease;
+}
+
+/* SIGILIU */
+.wax-seal {
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle at 30% 30%, #f5efe6, #d6c7a8);
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Gabriela', cursive;
+  font-size: 38px;
+  font-weight: bold;
+  color: #8c7a5a;
+
+  box-shadow: 
+    inset 0 2px 6px rgba(255,255,255,0.6),
+    inset 0 -4px 8px rgba(0,0,0,0.15),
+    0 8px 20px rgba(0,0,0,0.15);
+
+  z-index: 10; 
+}
+
+/* DESCHIDERE LATERAL */
+.overlay.open .seal-container::after {
+  transform: translateX(-100%);
+}
+
+.overlay.open .wax-seal {
+  opacity: 0;
+  transform: scale(1.4);
+}
+
+/* =========================
+   CONȚINUT INVITAȚIE
+========================= */
+
+.hidden { display: none; }
+
+.veil {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #ffffff, #f4f2ee);
+  padding: 40px 20px;
+  text-align: center;
+  font-family: 'Playfair', serif;
+  color: #3e3e3e;
+}
+
+/* NUME (BOHEME FLORAL) */
+.names {
+  font-family: 'Tangerine', cursive;
+  font-size: 56px;
+  background: linear-gradient(45deg, #c6b38e, #e8dcc6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* TEXT INVITATIE */
+.invite-text {
+  font-family: 'Playfair', serif;
+  max-width: 500px;
+  margin: 20px auto;
+  color: #444;
+}
+
+/* DATE */
+.date {
+  color: #333;
+  margin: 20px 0;
+}
+
+/* EVENIMENTE */
+.event {
+  margin: 30px 0;
+  padding: 10px;
+}
+
+.event-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.event a {
+  color: #5f6f5a;
+  text-decoration: none;
+}
+
+/* ICONITE */
+.icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.subtitle {
+  font-size: 28px;
+  letter-spacing: 2px;
+  color: #8c7a5a;
+  margin-bottom: 20px;
+}
+
+.parents {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.parent-block {
+  width: 45%;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+/* FORM */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+  margin: auto;
+}
+
+input, select {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+button {
+  padding: 12px;
+  background: #5f6f5a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+}
+
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  opacity: 0.18;
+  z-index: -10;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255,255,255,0.7);
+  z-index: -5;
+}
+
+#countdown {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.time-box {
+  text-align: center;
+  background: rgba(255,255,255,0.6);
+  padding: 10px 14px;
+  border-radius: 10px;
+  min-width: 60px;
+}
+
+.time-box span {
+  display: block;
+  font-size: 22px;
+  color: #5f6f5a;
+}
+
+.time-box small {
+  font-size: 12px;
+  color: #777;
+}
+
+.overlay {
+  background: transparent !important;
+}
