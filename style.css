@@ -945,8 +945,8 @@ section {
   transform: translateZ(0); /* force GPU rendering */
 }
 
-.rsvp-submit.loading .btn-loader {
-  display: block;
+.rsvp-submit.loading .btn-text {
+  opacity: 0;
 }
 
 /* check */
@@ -967,6 +967,9 @@ section {
   min-width: 50px;
   padding: 0;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rsvp-submit.loading .btn-text {
@@ -1037,6 +1040,7 @@ section {
 
 .rsvp-submit {
   transition: all 0.15s ease;
+  position: relative;
 }
 
 .rsvp-submit:active {
