@@ -38,7 +38,10 @@ body {
   position: absolute;
   width: 60%;
   height: 100%;
-  background: #f3eee6;
+  background-image: url("page-texture.jpg"); /* 👈 poza ta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   right: 0;
   top: 0;
   clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
