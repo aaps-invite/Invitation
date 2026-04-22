@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  const RSVP_KEY = "wedding_rsvp_sent";
   // Funcția de deschidere a invitației
 window.openInvite = function() {
     const overlay = document.querySelector('.overlay');
@@ -83,8 +84,37 @@ window.openInvite = function() {
 /* RSVP */
 const form = document.getElementById("rsvp-form");
 
+const alreadySent = localStorage.getItem(RSVP_KEY);
+
+if (alreadySent) {
+  const button = document.querySelector(".rsvp-submit");
+  const form = document.getElementById("rsvp-form");
+
+  form.innerHTML = `
+    <div style="
+      text-align:center;
+      padding:30px;
+      font-family: 'Playfair Display', serif;
+      color:#a99368;
+      font-size:18px;
+    ">
+      Ai confirmat deja prezența 💌
+      <br><br>
+      Te așteptăm cu drag!
+    </div>
+  `;
+
+  if (button) button.style.display = "none";
+}
+
 form.addEventListener("submit", function(e) {
   e.preventDefault();
+
+    // 🔥 BLOCARE DUBLĂ
+  if (localStorage.getItem(RSVP_KEY)) {
+    alert("Ai trimis deja RSVP 💌");
+    return;
+  }
 
   const button = this.querySelector(".rsvp-submit");
   const text = button.querySelector(".btn-text");
@@ -113,6 +143,11 @@ form.addEventListener("submit", function(e) {
     button.classList.add("success");
     text.innerText = "Trimis ✓";
     alert("Mulțumim pentru confirmare! 💌");
+
+    localStorage.setItem(RSVP_KEY, JSON.stringify({
+      name: data.name,
+      date: new Date().toISOString()
+    }));
 
     setTimeout(() => {
       form.reset();
