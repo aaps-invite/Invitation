@@ -24,6 +24,7 @@ body {
 /* plic full screen */
 .seal-container {
   position: relative;
+  isolation: isolate;
   width: 100%;
   height: 100vh;
   background: linear-gradient(120deg, #f7f7f5, #e9e6e1);
@@ -54,6 +55,8 @@ body {
   clip-path: polygon(0 0, 80% 0, 100% 50%, 80% 100%, 0 100%);
   transform-origin: left;
   transition: transform 1s ease;
+  z-index: 0;
+
 }
 
 /* SIGILIU */
@@ -1115,6 +1118,7 @@ section {
   font-size: 32px;
   font-weight: 600;
   color: rgba(255,255,255,0.85);
+  z-index: 10;
 
   cursor: pointer;
   position: absolute;
