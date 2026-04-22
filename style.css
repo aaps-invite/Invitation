@@ -915,15 +915,6 @@ section {
 }
 
 /* loader */
-.btn-loader {
-  position: absolute;
-  width: 22px;
-  height: 22px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: none;
-}
 
 .btn-loader::after {
   content: "";
@@ -933,20 +924,17 @@ section {
   border-top: 2px solid white;
   border-radius: 50%;
   display: block;
-
-  -webkit-animation: spin 0.8s linear infinite;
   animation: spin 0.8s linear infinite;
-
-  will-change: transform;
 }
 
 .btn-loader {
-  display: none;
-  transform: translateZ(0); /* force GPU rendering */
+  width: 22px;
+  height: 22px;
+  display: block;
 }
 
 .rsvp-submit.loading .btn-text {
-  opacity: 0;
+  display: none;
 }
 
 /* check */
@@ -964,9 +952,10 @@ section {
 /* LOADING = cerc */
 .rsvp-submit.loading {
   width: 50px;
-  min-width: 50px;
+  height: 50px;
   padding: 0;
   border-radius: 50%;
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1047,3 +1036,4 @@ section {
   transform: scale(0.94);
   transition: transform 0.08s;
 }
+
