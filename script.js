@@ -110,6 +110,7 @@ form.addEventListener("submit", function(e) {
   .then(() => {
     // ✅ SUCCESS
     button.classList.remove("loading");
+    button.style.width = "100%";
     button.classList.add("success");
     text.innerText = "Trimis ✓";
     alert("Mulțumim pentru confirmare! 💌");
