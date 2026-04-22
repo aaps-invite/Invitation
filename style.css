@@ -959,9 +959,18 @@ section {
 
 /* SUCCESS STATE */
 .rsvp-submit.success {
-  width: 50px;
-  border-radius: 50%;
+  width: 100%;
+  border-radius: 6px;
   background: #6b8e6b;
+}
+
+.rsvp-submit.success .btn-text {
+  display: inline;
+  opacity: 1;
+}
+
+.rsvp-submit.success .btn-check {
+  display: none; /* nu mai folosim check-ul separat */
 }
 
 .rsvp-submit.success .btn-loader {
