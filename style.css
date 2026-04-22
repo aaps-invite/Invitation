@@ -1077,7 +1077,8 @@ section {
 }
 
 .rsvp-submit.success .btn-content {
-  opacity: 0;
+  opacity: 1;
+  filter: none;
 }
 
 .rsvp-submit.success .btn-loader {
