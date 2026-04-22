@@ -239,3 +239,11 @@ radios.forEach(r => {
 toggleRSVPFields();
 
 });
+
+document.querySelector(".wax-seal-floral").addEventListener("click", function () {
+  this.classList.add("break-seal");
+
+  setTimeout(() => {
+    openInvite(); // păstrezi logica ta
+  }, 900);
+});
