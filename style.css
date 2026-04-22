@@ -1112,6 +1112,10 @@ section {
   align-items: center;
   justify-content: center;
 
+  overflow: hidden;
+  isolation: isolate;
+  transform-style: preserve-3d;
+
   font-family: 'Playfair Display', serif;
   font-size: 34px;
   font-weight: 600;
@@ -1144,15 +1148,16 @@ section {
 .wax-seal-floral::before {
   content: "";
   position: absolute;
-  inset: 12px;
+  inset: 0;
   border-radius: 50%;
-
+  pointer-events: none;
   background:
-    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 40%),
-    radial-gradient(circle at 70% 60%, rgba(0,0,0,0.15), transparent 45%);
+    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.35), transparent 40%),
+    radial-gradient(circle at 70% 75%, rgba(0,0,0,0.35), transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(0,0,0,0.15), transparent 70%);
 
   opacity: 0.6;
-  mix-blend-mode: overlay;
+  mix-blend-mode: soft-light;
 }
 
 /* 🕯️ subtle crack / wax imperfection */
@@ -1160,6 +1165,7 @@ section {
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
   border-radius: 50%;
   background:
     repeating-linear-gradient(
@@ -1169,7 +1175,9 @@ section {
       transparent 2px,
       transparent 6px
     );
-  opacity: 0.25;
+  background-image: url("https://www.transparenttextures.com/patterns/worn-dots.png");
+  opacity: 0.18;
+  mix-blend-mode: overlay;
 }
 
 /* hover = soft press into wax */
@@ -1194,4 +1202,22 @@ section {
   text-shadow:
     0 2px 2px rgba(0,0,0,0.35),
     0 -1px 1px rgba(255,255,255,0.2);
+}
+
+@media (max-width: 768px) {
+  .wax-seal-floral {
+    width: 130px;
+    height: 130px;
+
+    /* 🔥 mai mult contrast pe mobil */
+    filter: contrast(1.15) saturate(1.2);
+  }
+
+  .wax-seal-floral::before {
+    opacity: 0.9;
+  }
+
+  .wax-seal-floral::after {
+    opacity: 0.22;
+  }
 }
