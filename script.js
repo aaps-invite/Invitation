@@ -81,8 +81,17 @@ window.openInvite = function() {
   items.forEach(item => observer.observe(item));
 
 /* RSVP */
-document.getElementById("rsvp-form").addEventListener("submit", function(e) {
+const form = document.getElementById("rsvp-form");
+
+form.addEventListener("submit", function(e) {
   e.preventDefault();
+
+  const button = this.querySelector(".rsvp-submit");
+  const text = button.querySelector(".btn-text");
+
+  // 🔄 LOADING
+  button.classList.add("loading");
+  button.disabled = true;
 
   const data = {
     name: this.nume.value,
@@ -99,15 +108,26 @@ document.getElementById("rsvp-form").addEventListener("submit", function(e) {
     body: JSON.stringify(data)
   })
   .then(() => {
-    alert("Mulțumim pentru confirmare! 💌");
-    this.reset();
+    // ✅ SUCCESS
+    button.classList.remove("loading");
+    button.classList.add("success");
+    text.innerText = "Trimis ✓";
 
-    // reset UI
-    document.getElementById("partner-field").style.display = "none";
-    document.getElementById("menu-field").style.display = "none";
+    setTimeout(() => {
+      form.reset();
+      button.classList.remove("success");
+      button.disabled = false;
+      text.innerText = "TRIMITE";
+
+      document.getElementById("partner-field").style.display = "none";
+      document.getElementById("menu-field").style.display = "none";
+
+    }, 2500);
   })
   .catch(() => {
-    alert("Eroare la trimitere.");
+    button.classList.remove("loading");
+    button.disabled = false;
+    text.innerText = "Eroare!";
   });
 });
 
