@@ -112,6 +112,7 @@ form.addEventListener("submit", function(e) {
     button.classList.remove("loading");
     button.classList.add("success");
     text.innerText = "Trimis ✓";
+    alert("Mulțumim pentru confirmare! 💌");
 
     setTimeout(() => {
       form.reset();
