@@ -7,15 +7,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-<video autoplay muted loop playsinline id="bg-video">
-<source src="bg.mp4" type="video/mp4"></video>
 
 <div class="overlay" onclick="openInvite()">
   <div class="seal-container">
     <div class="wax-seal">A & A</div>
   </div>
+</div>
+
+<div class="video-sticky">
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="bg.mp4" type="video/mp4">
+    </video>
 </div>
 
 <!-- CONTINUT -->
@@ -44,97 +49,220 @@
       </div>
     </div>
 
-    <h2 class="date">11 Septembrie 2027</h2>
+   <div class="countdown" data-date="Sep 11 2027 16:00:00">
+      <h4>11 Septembrie 2027</h4>
 
-    <div id="countdown"></div>
+      <div class="container_count">
+        <div id="days">0</div>
+        <span>zile</span>
+      </div>
+
+      <div class="container_count">
+        <div id="hours">0</div>
+        <span>ore</span>
+      </div>
+
+      <div class="container_count">
+        <div id="minutes">0</div>
+        <span>minute</span>
+      </div>
+
+      <div class="container_count last">
+        <div id="seconds">0</div>
+        <span>secunde</span>
+      </div>
+    </div>
 
     <script>
 
   // Data țintă (ex: 1 ianuarie 2027)
 
   const targetDate = new Date("Sep 11, 2027 16:00:00").getTime();
-
   const countdownFunction = setInterval(function() {
-
     const now = new Date().getTime();
-
     const distance = targetDate - now;
-
-    // Calcul timp
-
     const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    // Afișare
-
     document.getElementById("countdown").innerHTML =
-
       days + " zile " +
-
       hours + " ore " +
-
       minutes + " minute " +
-
       seconds + " secunde";
 
-    // Dacă timpul a expirat
-
     if (distance < 0) {
-
       clearInterval(countdownFunction);
-
       document.getElementById("countdown").innerHTML = "A expirat!";
-
     }
-
   }, 1000);
 
 </script>
 
-    <!-- CEREMONIE -->
-    <div class="event">
-      <div class="event-title">
-        <img class="icon" src="https://static.vecteezy.com/system/resources/previews/036/574/496/large_2x/elegant-ecclesia-church-logo-symbol-heavenly-heights-church-emblem-vector.jpg">
-        Biserica
-      </div>
-      <p>Ora 16:00</p>
-      <p>Locație: Biserica Eroilor Martiri din Decembrie 1989</p>
-      <a href="https://maps.app.goo.gl/t4FAhu7SqMm7ARCG9">Vezi pe hartă</a>
-    </div>
+<section class="py-24 relative">
 
-    <!-- PETRECERE -->
-    <div class="event">
-      <div class="event-title">
-        <img class="icon" src="https://static.vecteezy.com/system/resources/previews/035/408/963/large_2x/solid-icon-for-venues-vector.jpg">
-        Restaurant / Petrecere
+  <div class="text-center mb-20">
+    <h2 class="text-3xl md:text-4xl font-semibold"
+        style="font-family:'Playfair Display'; color:#c6b38e;">
+      Locații & Program
+    </h2>
+    <p class="italic mt-2" style="color: #a89f8d;">Unde ne vedem — și când</p>
+  </div>
+
+  <div class="relative max-w-5xl mx-auto">
+
+    <!-- linie -->
+    <div id="timeline-line"
+         class="absolute left-1/2 top-0 w-[2px] bg-gray-300 origin-top scale-y-0"></div>
+
+    <div class="flex flex-col gap-28">
+
+      <!-- CIVILA (stanga) -->
+      <div class="timeline-item grid grid-cols-[1fr_auto_1fr] items-center opacity-0 translate-y-10">
+
+        <div class="content left">
+          <p class="time">Ora 12:00</p>
+          <h3 class="title">Cununia civilă</h3>
+          <p class="location">Starea Civilă Sector 5</p>
+          <a href="https://maps.google.com/?q=Starea+Civilă+Sector+5" target="_blank" class="link">Vezi locația</a>
+        </div>
+
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M6 2h9l3 3v17H6z"/>
+            <path d="M9 13h6"/>
+            <path d="M9 17h4"/>
+            <path d="M14 9l2 2 3-3"/>
+          </svg>
+        </div>
+
+        <div></div>
       </div>
-      <p>Ora 18:30</p>
-      <p>Locație: V Lounge</p>
-      <a href="https://maps.app.goo.gl/5PUygjoMzNtHvifR6">Vezi pe hartă</a>
+
+      <!-- BISERICA (dreapta) -->
+      <div class="timeline-item grid grid-cols-[1fr_auto_1fr] items-center opacity-0 translate-y-10">
+
+        <div></div>
+
+        <div class="icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M12 3l7 6v12H5V9z"/>
+            <path d="M12 3v4M10 5h4"/>
+            <path d="M9 21V12h6v9"/>
+          </svg>
+        </div>
+
+        <div class="content right">
+          <p class="time">Ora 16:00</p>
+          <h3 class="title">Cununia religioasă</h3>
+          <p class="location">Biserica Eroilor Martiri din Decembrie 1989</p>
+          <a href="https://maps.app.goo.gl/t4FAhu7SqMm7ARCG9" target="_blank" class="link">Vezi locația</a>
+        </div>
+      </div>
+
+      <!-- PETRECERE (stanga) -->
+      <div class="timeline-item grid grid-cols-[1fr_auto_1fr] items-center opacity-0 translate-y-10">
+
+        <div class="content left">
+          <p class="time">Ora 18:30</p>
+          <h3 class="title">Petrecere</h3>
+          <p class="location">V Lounge</p>
+          <a href="https://maps.app.goo.gl/5PUygjoMzNtHvifR6" target="_blank" class="link">Vezi locația</a>
+        </div>
+
+          <div class="icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+              <path d="M8 3v6a4 4 0 0 0 8 0V3"/>
+              <path d="M12 13v8"/>
+              <path d="M9 21h6"/>
+            </svg>
+          </div>
+
+        <div></div>
+      </div>
+
     </div>
+  </div>
+</section>
+
 
     <!-- RSVP -->
-    <div class="section">
-      <h3>Confirmare prezență</h3>
+  <form id="rsvp-form" method="POST" action="https://script.google.com/macros/s/AKfycbx0IPczidZ6cUQpWD1X3-H8Oqz3f2Ld1Z_TTvK7UmLZmEx8ETVhcl1bYRym_G-4KEGO0Q/exec">
 
-      <form id="rsvpForm">
-        <input type="text" name="name" placeholder="Nume Prenume" required>
-        <input type="number" name="guests" placeholder="Număr persoane" required>
+  <div class="rsvp-container">
 
-        <select name="status" required>
-          <option value="">Selectează</option>
-          <option value="Confirm">Confirm</option>
-          <option value="Nu pot veni">Nu pot veni</option>
-        </select>
+    <div class="rsvp-title">Confirmare</div>
 
-        <button type="submit">Trimite</button>
-      </form>
+    <!-- NUME -->
+    <div class="rsvp-group">
+      <label>Nume și Prenume *</label>
+      <small>Numele și prenumele dumneavoastră.</small>
+      <input class="rsvp-input" type="text" name="nume" required>
     </div>
+
+    <!-- PARTICIPARE -->
+    <div class="rsvp-group">
+      <label>Răspuns *</label>
+
+      <div class="rsvp-options">
+        <input type="radio" id="yes" name="participa" value="Particip" required>
+        <label for="yes">Particip</label>
+
+        <input type="radio" id="no" name="participa" value="Nu Particip">
+        <label for="no">Nu Particip</label>
+      </div>
+    </div>
+
+    <!-- PARTENER -->
+    <div class="rsvp-group" id="partner-choice">
+      <label>Veți fi însoțit?</label>
+
+      <div class="rsvp-options">
+        <input type="radio" id="p1" name="partener" value="Da">
+        <label for="p1">Da</label>
+
+        <input type="radio" id="p2" name="partener" value="Nu">
+        <label for="p2">Nu</label>
+      </div>
+    </div>
+
+    <!-- NUME PARTENER -->
+    <div class="rsvp-group" id="partner-field">
+      <label>Nume și Prenume partener</label>
+      <input class="rsvp-input" type="text" name="nume_partener">
+    </div>
+
+    <!-- COPII -->
+    <div class="rsvp-group" id="kids-field">
+      <label>Veți veni cu copii?</label>
+
+      <div class="rsvp-options">
+        <input type="radio" id="c1" name="copii" value="Da">
+        <label for="c1">Da</label>
+
+        <input type="radio" id="c2" name="copii" value="Nu">
+        <label for="c2">Nu</label>
+      </div>
+    </div>
+
+    <!-- MENIU -->
+<div class="rsvp-group" id="menu-field">
+  <label>Preferințe meniu</label>
+
+  <div class="rsvp-radio-group" id="menu-options" name="meniu"></div>
+</div>
+
+    <!-- MESAJ -->
+    <div class="rsvp-group">
+      <label>Mesaj</label>
+      <textarea class="rsvp-textarea" name="mesaj"></textarea>
+    </div>
+
+    <button class="rsvp-submit" type="submit">TRIMITE</button>
+
+  </div>
+</form>
 
   </div>
 </div>

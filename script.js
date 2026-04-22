@@ -1,53 +1,185 @@
 document.addEventListener("DOMContentLoaded", function() {
 
+  // Funcția de deschidere a invitației
 window.openInvite = function() {
-  document.querySelector('.overlay').classList.add('open');
+    const overlay = document.querySelector('.overlay');
+    const content = document.getElementById('content');
+    const bgVideo = document.getElementById('bg-video');
 
-  setTimeout(() => {
-    document.querySelector('.overlay').style.display = "none";
-    document.getElementById("content").classList.remove("hidden");
-  }, 900);
+    overlay.classList.add('open');
+
+    setTimeout(() => {
+      overlay.style.transition = "opacity 0.6s ease";
+      overlay.style.opacity = "0";
+
+      setTimeout(() => {
+        overlay.style.display = "none";
+        
+        // Afișăm conținutul
+        content.classList.remove("hidden");
+        
+        // --- ACESTA ESTE FIX-UL CRITIC ---
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0; 
+        document.documentElement.scrollTop = 0;
+        // ---------------------------------
+
+        if (bgVideo) {
+          bgVideo.play();
+        }
+      }, 600);
+    }, 900);
 }
 
-/* COUNTDOWN */
-const weddingDate = new Date("2027-09-11T16:00:00").getTime();
+  document.getElementById('content').classList.add('show');
 
-setInterval(() => {
-  const now = new Date().getTime();
-  const diff = weddingDate - now;
+  /* --- Restul codului tău rămâne neschimbat --- */
+  
+  /* COUNTDOWN */
+  const countdownElement = document.querySelector(".countdown");
+  if (countdownElement) {
+    const target = new Date(countdownElement.dataset.date).getTime();
 
-  if (diff <= 0) {
-    document.getElementById("countdown").innerText = "Ziua evenimentului";
-    return;
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = target - now;
+
+      if (diff <= 0) return;
+
+      document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById("hours").innerText = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      document.getElementById("minutes").innerText = Math.floor((diff / (1000 * 60)) % 60);
+      document.getElementById("seconds").innerText = Math.floor((diff / 1000) % 60);
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  /* TIMELINE OBSERVER */
+  const items = document.querySelectorAll(".timeline-item");
+  const line = document.getElementById("timeline-line");
+  let lineAnimated = false;
 
-  document.getElementById("countdown").innerText =
-    days + " zile " + hours + " ore " + minutes + " minute " + seconds + " secunde";
-}, 1000);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add("show");
+          const icon = entry.target.querySelector(".icon-wrapper");
+          if (icon) icon.classList.add("glow");
+        }, index * 300);
+
+        if (!lineAnimated && line) {
+          line.style.transform = "scaleY(1)";
+          lineAnimated = true;
+        }
+      }
+    });
+  }, { threshold: 0.2 });
+
+  items.forEach(item => observer.observe(item));
 
 /* RSVP */
-document.getElementById("rsvpForm").addEventListener("submit", function(e) {
+document.getElementById("rsvp-form").addEventListener("submit", function(e) {
   e.preventDefault();
 
   const data = {
-    name: this.name.value,
-    guests: this.guests.value,
-    status: this.status.value
+    name: this.nume.value,
+    status: document.querySelector('input[name="participa"]:checked')?.value || "",
+    partner: document.querySelector('input[name="partener"]:checked')?.value || "",
+    partner_name: this.nume_partener.value || "",
+    kids: document.querySelector('input[name="copii"]:checked')?.value || "",
+    menu: document.querySelector('input[name="meniu"]:checked')?.value || "",
+    message: this.mesaj.value || ""
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbxPGnoSXMjMxbVJdr32CLXlEfhsMDj8sXpPvkDY1YcsYvU2-rFA7EfLeD2snCIfwPwqTQ/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbx0IPczidZ6cUQpWD1X3-H8Oqz3f2Ld1Z_TTvK7UmLZmEx8ETVhcl1bYRym_G-4KEGO0Q/exec", {
     method: "POST",
     body: JSON.stringify(data)
   })
   .then(() => {
     alert("Mulțumim pentru confirmare! 💌");
     this.reset();
+
+    // reset UI
+    document.getElementById("partner-field").style.display = "none";
+    document.getElementById("menu-field").style.display = "none";
+  })
+  .catch(() => {
+    alert("Eroare la trimitere.");
   });
 });
+
+const partnerField = document.getElementById("partner-field");
+const menuField = document.getElementById("menu-field");
+const menuOptions = document.getElementById("menu-options");
+
+// ascuns inițial
+partnerField.style.display = "none";
+menuField.style.display = "none";
+
+// HTML pentru meniuri
+const menuForTwo = `
+  <label><input type="radio" name="meniu" value="2x Normal"> 2x Meniu Normal</label>
+  <label><input type="radio" name="meniu" value="2x Vegetarian"> 2x Meniu Vegetarian</label>
+  <label><input type="radio" name="meniu" value="1x Normal + 1x Vegetarian"> 1x Normal, 1x Vegetarian</label>
+`;
+
+const menuForOne = `
+  <label><input type="radio" name="meniu" value="Meniu Normal"> Meniu Normal</label>
+  <label><input type="radio" name="meniu" value="Meniu Vegetarian"> Meniu Vegetarian</label>
+`;
+
+// când se schimbă partener
+document.querySelectorAll("input[name='partener']").forEach(el => {
+  el.addEventListener("change", () => {
+
+    menuField.style.display = "block";
+
+    if (el.value === "Da") {
+      partnerField.style.display = "block";
+      menuOptions.innerHTML = menuForTwo;
+    } else {
+      partnerField.style.display = "none";
+      menuOptions.innerHTML = menuForOne;
+    }
+  });
+});
+
+const radios = document.querySelectorAll('input[name="participa"]');
+const partnerChoice = document.getElementById("partner-choice");
+const kidsField = document.getElementById("kids-field");
+
+function toggleRSVPFields() {
+  const value = document.querySelector('input[name="participa"]:checked')?.value;
+
+  const fields = [partnerChoice, partnerField, kidsField, menuField];
+
+  if (value === "Nu Particip") {
+    fields.forEach(el => {
+      el.style.display = "none";
+
+      el.querySelectorAll("input, select").forEach(input => {
+        input.disabled = true;
+      });
+    });
+  } else {
+    fields.forEach(el => {
+      el.style.display = "block";
+
+      el.querySelectorAll("input, select").forEach(input => {
+        input.disabled = false;
+      });
+    });
+  }
+}
+
+radios.forEach(r => {
+  r.addEventListener("change", toggleRSVPFields);
+});
+
+// iniția
+toggleRSVPFields();
 
 });
